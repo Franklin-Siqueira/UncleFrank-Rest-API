@@ -1,6 +1,6 @@
 package one.digitalinnovation.PersonAPI.utils;
 
-import one.digitalinnovation.PersonAPI.dtos.requests.PersonDTO;
+import one.digitalinnovation.PersonAPI.dtos.requests.PersonDto;
 import one.digitalinnovation.PersonAPI.entities.Person;
 
 import java.time.LocalDate;
@@ -14,8 +14,8 @@ public class PersonUtils {
     private static final long PERSON_ID = 1L;
     public static final LocalDate BIRTH_DATE = LocalDate.of(2010, 10, 1);
 
-    public static PersonDTO createFakeDTO() {
-        return PersonDTO.builder()
+    public static PersonDto createFakeDTO() {
+        return PersonDto.builder()
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .cpf(CPF_NUMBER)

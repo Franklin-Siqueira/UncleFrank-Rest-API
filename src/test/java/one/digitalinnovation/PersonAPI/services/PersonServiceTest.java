@@ -1,16 +1,13 @@
 package one.digitalinnovation.PersonAPI.services;
 
-import one.digitalinnovation.PersonAPI.dtos.requests.PersonDTO;
+import one.digitalinnovation.PersonAPI.dtos.requests.PersonDto;
 import one.digitalinnovation.PersonAPI.dtos.responses.MessageResponseDTO;
 import one.digitalinnovation.PersonAPI.entities.Person;
 import one.digitalinnovation.PersonAPI.repositories.PersonRepository;
-import one.digitalinnovation.PersonAPI.utils.PersonUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static one.digitalinnovation.PersonAPI.utils.PersonUtils.*;
@@ -28,7 +25,7 @@ public class PersonServiceTest {
 
     @Test
     void testGivenPersonDTOThenReturnSavedMessage() {
-        PersonDTO personDTO = createFakeDTO();
+        PersonDto personDTO = createFakeDTO();
         Person expectedSavedPerson = createFakeEntity();
 
         when(personRepository.save(any(Person.class))).thenReturn(expectedSavedPerson);

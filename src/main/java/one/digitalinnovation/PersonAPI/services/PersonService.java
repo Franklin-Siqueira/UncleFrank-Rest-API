@@ -1,7 +1,7 @@
 package one.digitalinnovation.PersonAPI.services;
 
 import lombok.AllArgsConstructor;
-import one.digitalinnovation.PersonAPI.dtos.requests.PersonDTO;
+import one.digitalinnovation.PersonAPI.dtos.requests.PersonDto;
 import one.digitalinnovation.PersonAPI.dtos.responses.MessageResponseDTO;
 import one.digitalinnovation.PersonAPI.entities.Person;
 import one.digitalinnovation.PersonAPI.exceptions.PersonNotFoundException;
@@ -19,7 +19,7 @@ public class PersonService {
 
     private PersonRepository personRepository;
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
-    public MessageResponseDTO createPerson(PersonDTO personDTO) {
+    public MessageResponseDTO createPerson(PersonDto personDTO) {
 
         Person personToSave = personMapper.toModel(personDTO);
         Person savedPerson = personRepository.save(personToSave);
@@ -27,7 +27,7 @@ public class PersonService {
         return createMessageResponse(savedPerson.getId(), "Created person with ID ");
     }
 
-    public List<PersonDTO> listAll() {
+    public List<PersonDto> listAll() {
 
         List<Person> allPeople = personRepository.findAll();
 
@@ -36,7 +36,7 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
-    public PersonDTO findById(Long id) throws PersonNotFoundException {
+    public PersonDto findById(Long id) throws PersonNotFoundException {
 
         Person person = verifyIfExists(id);
 
@@ -48,7 +48,7 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
-    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+    public MessageResponseDTO updateById(Long id, PersonDto personDTO) throws PersonNotFoundException {
 
         verifyIfExists(id);
         Person personToUpdate = personMapper.toModel(personDTO);
