@@ -22,6 +22,8 @@ public class PersonService {
 
     /**
      *
+     * @title createPerson()
+     *  add a new Person to DB
      * @param personDTO
      * @return
      */

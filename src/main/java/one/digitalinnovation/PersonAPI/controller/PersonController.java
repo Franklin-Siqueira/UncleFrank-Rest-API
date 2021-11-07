@@ -41,28 +41,86 @@ public class PersonController {
 //    }
 //
     private PersonService personService;
-//
+
+    /**
+     *
+     * @param personDTO
+     * @return
+     *
+     * Sample (use on Postman):
+     * {
+     *     "firstName": "Franklin",
+     *     "lastName": "Siqueira",
+     *     "birthDate": "10-10-2000",
+     *     "cpf": "267.450.589-36",
+     *     "phones": [
+     *         {
+     *             "id": "1",
+     *             "type": "MOBILE",
+     *             "number": "(11)999990000"
+     *         }
+     *     ]
+     * }
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO createPerson(@RequestBody @Valid PersonDto personDTO) {
         return personService.createPerson(personDTO);
     }
-//
+
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public List<PersonDto> listAll() {
         return personService.listAll();
     }
-//
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws PersonNotFoundException
+     */
     @GetMapping("/{id}")
     public PersonDto findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
     }
-//
+
+    /**
+     *
+     * @param id
+     * @param personDTO
+     * @return
+     * @throws PersonNotFoundException
+     *
+     * Sample (use on Postman):
+     * {
+     *     "id": 1,
+     *     "firstName": "Franklin",
+     *     "lastName": "Siqueira",
+     *     "birthDate": "10-10-2000",
+     *     "cpf": "267.450.589-36",
+     *     "phones": [
+     *         {
+     *             "id": 1,
+     *             "type": "MOBILE",
+     *             "number": "(11)999990000"
+     *         }
+     *     ]
+     * }
+     */
     @PutMapping("/{id}")
     public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid PersonDto personDTO) throws PersonNotFoundException {
         return personService.updateById(id, personDTO);
     }
-//
+
+    /**
+     *
+     * @param id
+     * @throws PersonNotFoundException
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws PersonNotFoundException {
