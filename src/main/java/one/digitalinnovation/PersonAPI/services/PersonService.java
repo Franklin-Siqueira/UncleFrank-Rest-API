@@ -19,6 +19,12 @@ public class PersonService {
 
     private PersonRepository personRepository;
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
+
+    /**
+     *
+     * @param personDTO
+     * @return
+     */
     public MessageResponseDTO createPerson(PersonDto personDTO) {
 
         Person personToSave = personMapper.toModel(personDTO);
@@ -27,6 +33,10 @@ public class PersonService {
         return createMessageResponse(savedPerson.getId(), "Created person with ID ");
     }
 
+    /**
+     *
+     * @return
+     */
     public List<PersonDto> listAll() {
 
         List<Person> allPeople = personRepository.findAll();
@@ -36,6 +46,12 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws PersonNotFoundException
+     */
     public PersonDto findById(Long id) throws PersonNotFoundException {
 
         Person person = verifyIfExists(id);
@@ -43,11 +59,23 @@ public class PersonService {
         return personMapper.toDTO(person);
     }
 
+    /**
+     *
+     * @param id
+     * @throws PersonNotFoundException
+     */
     public void delete(Long id) throws PersonNotFoundException {
         verifyIfExists(id);
         personRepository.deleteById(id);
     }
 
+    /**
+     *
+     * @param id
+     * @param personDTO
+     * @return
+     * @throws PersonNotFoundException
+     */
     public MessageResponseDTO updateById(Long id, PersonDto personDTO) throws PersonNotFoundException {
 
         verifyIfExists(id);
@@ -57,12 +85,24 @@ public class PersonService {
         return createMessageResponse(updatedPerson.getId(), "Updated person with ID ");
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws PersonNotFoundException
+     */
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
 
         return personRepository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
     }
 
+    /**
+     *
+     * @param id
+     * @param message
+     * @return
+     */
     private MessageResponseDTO createMessageResponse(Long id, String message) {
 
         return MessageResponseDTO

@@ -1,45 +1,72 @@
 package one.digitalinnovation.PersonAPI.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import one.digitalinnovation.PersonAPI.dtos.requests.PersonDto;
+import one.digitalinnovation.PersonAPI.dtos.responses.MessageResponseDTO;
+import one.digitalinnovation.PersonAPI.entities.Person;
+import one.digitalinnovation.PersonAPI.exceptions.PersonNotFoundException;
+import one.digitalinnovation.PersonAPI.repositories.PersonRepository;
+import one.digitalinnovation.PersonAPI.services.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/people")
-//@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
-
-    @GetMapping
-    public String getBook(){
-        return "REST API";
-    }
-//    private PersonService personService;
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
-//        return personService.createPerson(personDTO);
-//    }
 //
 //    @GetMapping
-//    public List<PersonDTO> listAll() {
-//        return personService.listAll();
+//    public String getPersonRestAPI(){
+//        return "REST API";
 //    }
 //
-//    @GetMapping("/{id}")
-//    public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
-//        return personService.findById(id);
+//    private PersonRepository personRepository;
+//
+//    @Autowired
+//    public PersonController(PersonRepository personRepository) {
+//        this.personRepository = personRepository;
 //    }
 //
-//    @PutMapping("/{id}")
-//    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
-//        return personService.updateById(id, personDTO);
+//    @PostMapping
+//    public MessageResponseDTO createPerson(@RequestBody Person person){
+//      Person savedPerson = personRepository.save(person);
+//        return MessageResponseDTO
+//                .builder()
+//                .message("Created person with Id: " + savedPerson.getId())
+//                .build();
 //    }
 //
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void deleteById(@PathVariable Long id) throws PersonNotFoundException {
-//        personService.delete(id);
-//    }
+    private PersonService personService;
+//
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponseDTO createPerson(@RequestBody @Valid PersonDto personDTO) {
+        return personService.createPerson(personDTO);
+    }
+//
+    @GetMapping
+    public List<PersonDto> listAll() {
+        return personService.listAll();
+    }
+//
+    @GetMapping("/{id}")
+    public PersonDto findById(@PathVariable Long id) throws PersonNotFoundException {
+        return personService.findById(id);
+    }
+//
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid PersonDto personDTO) throws PersonNotFoundException {
+        return personService.updateById(id, personDTO);
+    }
+//
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) throws PersonNotFoundException {
+        personService.delete(id);
+    }
 }
 
